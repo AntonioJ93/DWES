@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>Actividad 3B</title>
+
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link href="form-validation.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+    <header>
+
+        <div class="navbar navbar-dark bg-dark box-shadow">
+            <div class="container d-flex justify-content-between">
+                <a href="./index.html" class="navbar-brand d-flex align-items-center">
+
+                    <strong>Inicio</strong>
+                </a>
+
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <section class="jumbotron text-center">
+            <div class="container">
+                <h1 class="jumbotron-heading">Actividad 3B</h1>
+                <p class="lead text-muted">Tarea 1 Antonio Jesús Prieto Arjona</p>
+
+            </div>
+        </section>
+
+        <div class="album py-5 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card mb-4 borde">
+
+                            <div class="card-body">
+                                <h2>Formulario CV</h2>
+
+                                <form action="cv.php" method="post">
+                                    <h4>Datos Personales</h4>
+                                    <input type="text" name="nombre" placeholder="Nombre y apellidos"
+                                        class="form-control" required/>
+                                    <input type="email" name="correo" placeholder="Correo electrónico"
+                                        class="form-control" required/>
+                                    <input type="text" name="telefono" placeholder="Telefono (Opcional)"
+                                        class="form-control" />
+                                    <input type="text" name="web" placeholder="Sitio web (Opcional)"
+                                        class="form-control" />
+
+                                    <h4>Experiencia</h4>
+                                    <input type="text" name="empresa" placeholder="Empresa" class="form-control" required/>
+                                    <input type="text" name="puesto" placeholder="Puesto" class="form-control" required/>
+                                    <label for="experiencia"> Años trabajados</label>
+                                    <select id="experiencia" name="experiencia" class="form-select" aria-label="experiencia">
+                                        <option value="0">Seleccione su experiencia</option>
+                                        <optgroup label="Años de trabajo">
+                                            <option value="0-1">&lt;1 año</option>
+                                            <option value="2">2 años</option>
+                                            <option value="3">3 años</option>
+                                            <option value="4">4 años</option>
+                                            <option value="5 o mas">5&lt; años</option>
+                                        </optgroup>
+                                    </select>
+
+
+                                    <h4>Formación</h4>
+                                    <label for="formacion"> Tipo</label>
+                                    <select id="formacion" name="formacion" class="form-select" aria-label="formacion">
+                                        <option value="0">Seleccione una formación</option>
+                                        <optgroup label="Secundaria">
+                                            <option value="ESO">ESO</option>
+                                        </optgroup>
+                                        <optgroup label="Post Obligatoria">
+                                            <option value="Bachillerato">Bachillerato</option>
+                                            <option value="FPGM">FPGM</option>
+                                            <option value="FPGS">FPGS</option>
+                                        </optgroup>
+                                        <optgroup label="Universitaria">
+                                            <option value="Grado">Grado</option>
+                                            <option value="Maester">Maester</option>
+                                            <option value="Doctorado">Doctorado</option>
+                                        </optgroup>
+
+                                    </select>
+                                    <input type="text" name="nombreFormacion" placeholder="Nombre de la Formación"
+                                        class="form-control" required />
+                                    <h4>Idiomas</h4>
+                                    <label for="idioma"> Idioma</label>
+                                    <select id="idioma" name="idioma" class="form-select" aria-label="idioma">
+                                            <option value="0">Seleccione un idioma</option>
+                                            <option value="ingles">Inglés</option>
+                                            <option value="framces">Francés</option>
+                                            <option value="aleman">Aleman</option>
+                                            <option value="chino">Chino</option>
+                                            <option value="ruso">Ruso</option>
+                                  
+                                    </select>
+                                    <div class="form-check">
+                                        <label class="form-check-label" for="bajo">Bajo</label>
+                                        <input type="radio" name="nivelIdioma" id="bajo" value="Bajo" class="form-check-input" checked />
+                                    </div>
+                                    <div class="form-check">   
+                                        <label class="form-check-label" for="medio">Medio</label>
+                                        <input type="radio" name="nivelIdioma" id="medio" value="Medio" class="form-check-input" />
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label" for="alto">Alto</label>
+                                        <input type="radio" name="nivelIdioma" id="alto" value="Alto" class="form-check-input" />
+                                    </div>
+
+                                    <h4>Comentarios</h4>
+                                    <textarea class="form-control" name="comentario" cols="60" rows="6"
+                                        placeholder="Escriba su conectario aqui"></textarea>
+                                    <input type="submit" name="submit" value="Enviar" class="btn-success" />
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-muted">
+        <div class="container text-center">
+
+            <p>Antonio Jesús Prieto Arjona &copy; </p>
+            <p>pryet2@gmail.com </p>
+        </div>
+    </footer>
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
