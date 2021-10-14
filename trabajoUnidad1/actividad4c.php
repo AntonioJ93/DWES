@@ -2,22 +2,19 @@
 <html lang="es">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Trabajo DWES unidad 1">
-  <meta name="author" content="Antonio J. Prieto">
- 
-  <title>Tarea 1 DWES</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Trabajo DWES unidad 1">
+    <meta name="author" content="Antonio J. Prieto">
 
-  <!-- CSS only -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <title>Tarea 1 DWES</title>
+
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <link href="css/form-validation.css" rel="stylesheet">
     <link rel="stylesheet" href="css/retoqueNav.css">
-  <!-- JavaScript Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
-    crossorigin="anonymous"></script>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 
 </head>
 
@@ -33,7 +30,7 @@
         $peso = trim($_POST["peso"]);
         if (is_numeric($edad) && is_numeric($peso) && is_numeric($altura) && ($sexo == "h" || $sexo == "m")) {
 
-            $imc = calcularIMC($peso, $altura/100);
+            $imc = calcularIMC($peso, $altura / 100);
             switch ($imc) {
                 case $imc < 18.5:
                     $clasificacion = "Bajo Peso";
@@ -62,62 +59,61 @@
     function calculaMBasal($edad, $peso, $altura, $sexo)
     {
         if ($sexo == "h") {
-            return 10*$peso+6.25*$altura-5*$edad+5;
+            return 10 * $peso + 6.25 * $altura - 5 * $edad + 5;
         } else {
-            return 10*$peso+6.25*$altura-5*$edad-161;
+            return 10 * $peso + 6.25 * $altura - 5 * $edad - 161;
         }
-      
     }
     ?>
-<header>
+    <header>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container d-flex justify-content-between">
-    <a class="navbar-brand fw-bold" href="./index.html">Inicio</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="./actividad1.html">Actividad 1</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="./actividad2.html">Actividad 2</a>
-        </li>
-        
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="actividad3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Actividad 3
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="actividad3">
-            <li><a class="dropdown-item" href="./actividad3a.html">Actividad 3A</a></li>
-            <li><a class="dropdown-item" href="./actividad3b.html">Actividad 3B</a></li>  
-          </ul>
-        </li>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container d-flex justify-content-between">
+                <a class="navbar-brand fw-bold" href="./index.html">Inicio</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="./actividad1.html">Actividad 1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./actividad2.html">Actividad 2</a>
+                        </li>
 
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="actividad4" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Actividad 4
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="actividad4">
-            <li><a class="dropdown-item" href="./actividad4a.php">Actividad 4A</a></li>
-            <li><a class="dropdown-item" href="./actividad4b.php">Actividad 4B</a></li>  
-            <li><a class="dropdown-item" href="./actividad4c.php">Actividad 4C</a></li>  
-          </ul>
-        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="actividad3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Actividad 3
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="actividad3">
+                                <li><a class="dropdown-item" href="./actividad3a.html">Actividad 3A</a></li>
+                                <li><a class="dropdown-item" href="./actividad3b.html">Actividad 3B</a></li>
+                            </ul>
+                        </li>
 
-        <li class="nav-item">
-          <a class="nav-link" href="./actividad5.html">Actividad 5</a>
-        </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="actividad4" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Actividad 4
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="actividad4">
+                                <li><a class="dropdown-item" href="./actividad4a.php">Actividad 4A</a></li>
+                                <li><a class="dropdown-item" href="./actividad4b.php">Actividad 4B</a></li>
+                                <li><a class="dropdown-item" href="./actividad4c.php">Actividad 4C</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="./actividad5.html">Actividad 5</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
 
 
-</header>
+    </header>
 
     <main>
 
@@ -137,26 +133,39 @@
 
                             <div class="card-body">
                                 <h2>Cáculo del IMC y Metabolismo Basal</h2>
-                                
+
                                 <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" class="container">
                                     <div class="row">
                                         <div class="col-sm">
                                             <p>Sexo</p>
                                             <div class="form-check">
-                                                <label class="form-check-label" for="h">H</label>
+
                                                 <input type="radio" name="sexo" id="h" value="h" class="form-check-input" checked />
+                                                <label class="form-check-label" for="h">H</label>
                                             </div>
                                             <div class="form-check">
-                                                <label class="form-check-label" for="m">M</label>
+
                                                 <input type="radio" name="sexo" id="m" value="m" class="form-check-input" />
+                                                <label class="form-check-label" for="m">M</label>
                                             </div>
-                                            <input type="number" name="edad" id="edad" placeholder="Edad (años)">
-                                            <input type="text" name="peso" id="peso" placeholder="Peso (kg)">
-                                            <input type="text" name="altura" id="altura" placeholder="Altura (cm)">
+
+                                            <div class="col-sm form-group">
+                                                <label for="edad">Edad</label>
+                                                <input class="form-control" id="edad" type="number" name="edad" placeholder="Edad (años)">
+                                            </div>
+                                            <div class="col-sm form-group">
+                                                <label for="peso">Peso</label>
+                                                <input class="form-control" id="peso" type="text" name="peso" placeholder="Peso (kg)">
+                                            </div>
+                                            <div class="col-sm form-group">
+                                                <label for="altura">Altura</label>
+                                                <input class="form-control" id="altura" type="text" name="altura" placeholder="Altura (cm)">
+                                            </div>
+
                                         </div>
                                         <div class="col-sm">
                                             <?php if (isset($_POST["submit"]) && !isset($errorDato)) { ?>
-                                                <h4>Resultado</h4>
+                                                <p class="titulo-formulario">Resultado</p>
                                                 <p>Sexo: <?= $sexo ?></p>
                                                 <p>Altura: <?= $altura ?></p>
                                                 <p>Peso: <?= $peso ?></p>

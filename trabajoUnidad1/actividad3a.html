@@ -97,16 +97,37 @@
                                 <h2>Formulario Sencillo</h2>
                                 <p>Rellene los campos y pulse enviar</p>
                                 <form action="usuario.php" method="post">
-                                    <input type="text" name="nombre" placeholder="Nombre y apellidos" required
+                                    <div class="form-group">
+                                        <label for="nombre">Nombre</label>
+                                        <input type="text" id="nombre" name="nombre" placeholder="Nombre y apellidos" required
                                         class="form-control" />
-                                    <input type="email" name="correo" placeholder="Correo electrónico" required
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="email">Correo electrónico</label>
+                                        <input type="email" id="email" name="correo" placeholder="Correo electrónico" required
                                         class="form-control" />
-                                    <input type="text" name="telefono" placeholder="Telefono (Opcional)"
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="telefono">Telefono</label>
+                                        <input type="text" id="telefono" name="telefono" placeholder="Telefono (Opcional)"
                                         class="form-control" />
-                                    <input type="text" name="web" placeholder="Sitio web (Opcional)"
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="web">Web</label>
+                                        <input type="text" id="web" name="web" placeholder="Sitio web (Opcional)"
                                         class="form-control" />
-                                    <textarea class="form-control" name="consulta" cols="60" rows="6"
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="consulta">Consulta</label>
+                                        <textarea class="form-control" id="consulta" name="consulta" cols="60" rows="6"
                                         placeholder="Escriba su consulta aqui" required></textarea>
+                                    </div>
+                                    
+                                    
                                     <input type="submit" name="submit" value="Enviar" class="btn-success" />
                                 </form>
                             </div>

@@ -265,7 +265,7 @@
                                         </div>
                                         <div class="col-sm">
                                             <?php if (isset($_POST["submit"])) { ?>
-                                                <h4>Resultado</h4>
+                                                <p class="titulo-formulario">Resultado</p>
                                                 <p>Su eleccion: <?= $opcion ?></p>
                                                 <p>La maquina ha sacado: <?= $opcionMaquina ?> </p>
                                                 <p><?= $resultado ?></p>
