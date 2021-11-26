@@ -1,9 +1,13 @@
 <?php
-/* Connect to a MySQL database using driver invocation */
-$dsn = 'mysql:dbname=testdb;host=127.0.0.1';
-$user = 'dbuser';
-$password = 'dbpass';
+/* Conectar a una base de datos de MySQL invocando al controlador */
+$dsn = 'mysql:dbname=ud2_test;host=34.79.37.9:3306';
+$usuario = 'root';
+$contraseña = 'Fullstack.2021';
 
-$dbh = new PDO($dsn, $user, $password);
+try {
+    $conexion = new PDO($dsn, $usuario, $contraseña);
+} catch (PDOException $e) {
+    echo 'Falló la conexión: ' . $e->getMessage();
+}
 
 ?>
