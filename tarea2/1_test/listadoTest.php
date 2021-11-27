@@ -5,8 +5,6 @@ include "conexion.php";
 $login = false;
 $camposCorrectos = true;
 
-$correo = trim($_POST["correo"]);
-$pass = trim($_POST["pass"]);
 
 //patrones
 $patronCorreo = "#^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,3}))$#";
@@ -18,44 +16,65 @@ $passError = "La contraseña no debe tener espacios, estar entre 8 y 16 caracter
 $correoError = "Introduce un correo válido";
 $loginError = "Credenciales incorrectas";
 
-function validarCampos($pass, $correo)
-{
-    $contra = $cor =  false; //requeridos
+session_start();
+if (!isset($_SESSION["id_usuario"])) {
+    $correo = trim($_POST["correo"]);
+    $pass = trim($_POST["pass"]);
 
-    if (!empty($correo)) {
-        $cor = preg_match($GLOBALS["patronCorreo"], $correo);
-        $GLOBALS["correoError"] = $cor ? "" : $GLOBALS["correoError"];
+
+    function validarCampos($pass, $correo)
+    {
+        $contra = $cor =  false; //requeridos
+
+        if (!empty($correo)) {
+            $cor = preg_match($GLOBALS["patronCorreo"], $correo);
+            $GLOBALS["correoError"] = $cor ? "" : $GLOBALS["correoError"];
+        }
+        if (!empty($pass)) {
+            $contra = preg_match($GLOBALS["patronPass"], $pass);
+            $GLOBALS["passError"] = $contra ? "" : $GLOBALS["passError"];
+        }
+
+        return $contra  && $cor;
     }
-    if (!empty($pass)) {
-        $contra = preg_match($GLOBALS["patronPass"], $pass);
-        $GLOBALS["passError"] = $contra ? "" : $GLOBALS["passError"];
+
+
+    $camposCorrectos = validarCampos($pass, $correo);
+
+    if ($camposCorrectos) {
+
+        //buscamos al usuario
+        include "buscarPorCorreoYPass.php";
+
+        if ($res) { //devuelve false si no trae resultados
+            //credenciales correctas
+   
+            $_SESSION['id_usuario']  = $res["id_usuario"];
+            $_SESSION['correo']  = $res["correo"];
+            $_SESSION['nombre']  = $res["nombre"];
+            $login = true;
+
+            // buscar rol y meterlo en sesion
+            include "buscarRol.php";
+
+            //buscar todos los test
+            include "buscarTodosTest.php";
+
+            //inicializar test realizados
+            include "inicializarTest.php";
+        }
     }
+} else {
+    $login = true;
 
-    return $contra  && $cor;
-}
+    // buscar rol y meterlo en sesion
+    include "buscarRol.php";
 
+    //buscar todos los test
+    include "buscarTodosTest.php";
 
-$camposCorrectos = validarCampos($pass, $correo);
-
-if ($camposCorrectos) {
-
-    //buscamos al usuario
-    include "buscarPorCorreoYPass.php";
-
-    if ($res) { //devuelve false si no trae resultados
-        //credenciales correctas
-        session_start();
-        $_SESSION['id_usuario']  = $res["id_usuario"];
-        $_SESSION['correo']  = $res["correo"];
-        $_SESSION['nombre']  = $res["nombre"];
-        $login = true;
-
-        // buscar rol
-        include "buscarRol.php";
-
-        //buscar todos los test
-        include "buscarTodosTest.php";
-    }
+    //inicializar test realizados
+    include "inicializarTest.php";
 }
 
 ?>
@@ -123,6 +142,9 @@ if ($camposCorrectos) {
                 <?php if ($login && $_SESSION["USER"]) {
 
                     foreach ($listaTest as &$test) {
+
+                        //buscar intentos de cada test
+                        include "buscarIntentos.php";
                 ?>
                         <div class="row justify-content-md-center">
                             <div class="col-md-8">
@@ -131,9 +153,14 @@ if ($camposCorrectos) {
                                     <div class="card-body">
                                         <p class="card-title fw-bold"><?= $test["descripcion"] ?></p>
                                         <div class="d-flex justify-content-between align-items-center">
-                                            <div class="btn-group">
-                                                <a href="./test.php?idTest=<?= $test["id_test"] ?>" class="btn btn-sm btn-outline-secondary">Realizar Test</a>
-                                            </div>
+                                            <p>Intentos Restantes: <?= $testRealizado["intento"] ?></p>
+                                            <?php
+                                            if ($testRealizado["intento"] > 0) {
+                                            ?>
+                                                <div class="btn-group">
+                                                    <a href="./test.php?idTest=<?= $test["id_test"] ?>" class="btn btn-sm btn-outline-secondary">Realizar Test</a>
+                                                </div>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                 </div>
