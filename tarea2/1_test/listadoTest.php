@@ -61,7 +61,7 @@ if (!isset($_SESSION["id_usuario"])) {
             include "buscarTodosTest.php";
 
             //inicializar test realizados
-            include "inicializarTest.php";
+    //        include "inicializarTest.php";
         }
     }
 } else {
@@ -74,7 +74,7 @@ if (!isset($_SESSION["id_usuario"])) {
     include "buscarTodosTest.php";
 
     //inicializar test realizados
-    include "inicializarTest.php";
+ //   include "inicializarTest.php";
 }
 
 ?>

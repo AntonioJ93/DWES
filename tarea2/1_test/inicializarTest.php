@@ -1,4 +1,5 @@
 <?php
+///////////// no se usa //////////////
 const MAX_INTENTOS=3;
 
 $sql="Select * FROM test_realizados WHERE id_usuario= :idUsuario AND id_test= :idTest";

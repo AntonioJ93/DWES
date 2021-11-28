@@ -7,41 +7,67 @@ $login = false;
 $loginError = "Credenciales incorrectas";
 
 session_start();
-if(isset($_SESSION['id_usuario']))
-if ($_SESSION['id_usuario'] != null) {
-    //usuario logueado
-    $login = true;
+if (isset($_SESSION['id_usuario']))
+    if ($_SESSION['id_usuario'] != null) {
+        //usuario logueado
+        $login = true;
 
-    //test seleccionado
-    $idTest = trim($_POST["idTest"]);
+        //test seleccionado
+        $idTest = trim($_POST["idTest"]);
 
-    //buscar test
-    include "buscarTestPorId.php";
+        //buscar test
+        include "buscarTestPorId.php";
 
-    //buscar preguntas del test
-    include "buscarPreguntas.php";
+        //buscar preguntas del test
+        include "buscarPreguntas.php";
 
-    //recuperamos las respuestas
-    $respuestas=array();
-    foreach($listaPreguntas as &$preg){
-        if(isset($_POST[$preg["id_pregunta"]])){
-            array_push($respuestas,$_POST[$preg["id_pregunta"]] );
-        }else{
-            array_push($respuestas,null);
+        //recuperamos las respuestas
+        $respuestas = array();
+        foreach ($listaPreguntas as &$preg) {
+            if (isset($_POST[$preg["id_pregunta"]])) {
+                array_push($respuestas, $_POST[$preg["id_pregunta"]]);
+            } else {
+                array_push($respuestas, null);
+            }
         }
-    
     }
-
-}
 
 
 ////////////////////////////////////////////
-// falta restar intentos
 // mostrar calificación
 ////////////////////////////////////////////
 
+include "buscarOpcionesCorrectas.php";
+
+// Calcular calificación
+$preguntasCorrectas = array();
+$preguntasIncorrectas = array();
+$preguntasNoContestadas = array();
+foreach ($opcionesCorrectas as $op) {
+    foreach ($respuestas as $resp) {
 
 
+        /*        if(is_array($respuesta)){
+                foreach ($respuesta as $key ) {
+                    if($key==$opcion["id_opcion"]){
+                        $respuestaCheck=$opcion["id_opcion"];
+                    }
+                }
+            
+        }*/
+
+
+        if ($resp == null) {
+            array_push($preguntasNoContestadas, $op["id_pregunta"]);
+        } elseif ($resp == $op["id_opcion"]) {
+            array_push($preguntasCorrectas, $op["id_pregunta"]);
+        } else {
+            array_push($preguntasIncorrectas, $op["id_pregunta"]);
+        }
+    }
+}
+var_dump($preguntasCorrectas);
+var_dump($preguntasNoContestadas);
 
 ?>
 
@@ -98,22 +124,22 @@ if ($_SESSION['id_usuario'] != null) {
         <section class="jumbotron text-center bg-white py-3">
             <div class="container">
                 <?php if ($login) { ?>
-                    <h1 class="jumbotron-heading"><?= $test["descripcion"]?></h1>
+                    <h1 class="jumbotron-heading"><?= $test["descripcion"] ?></h1>
                 <?php } ?>
             </div>
         </section>
 
         <div class="py-5 bg-light">
             <div class="container">
-   
+
                 <?php if ($login && $_SESSION["USER"]) {
 
                     //iterar preguntas
-               
-                        for ($i=0; $i<count($listaPreguntas) ; $i++) { 
-                            $respuesta=$respuestas[$i];
-                            $respuestaCheck=$respuesta;
-                            $pregunta=$listaPreguntas[$i];
+
+                    for ($i = 0; $i < count($listaPreguntas); $i++) {
+                        $respuesta = $respuestas[$i];
+                        $respuestaCheck = $respuesta;
+                        $pregunta = $listaPreguntas[$i];
                 ?>
                         <div class="row justify-content-md-center">
                             <div class="col-md-8">
@@ -122,37 +148,34 @@ if ($_SESSION['id_usuario'] != null) {
                                     <div class="card-body">
                                         <p class="card-title fw-bold"><?= $pregunta["texto"] ?></p>
                                         <!-- opciones -->
-                                        <?php 
+                                        <?php
                                         //buscar opciones de la pregunta
                                         include "buscarOpcion.php";
-                                        
-                                        for ($j=0; $j<count($listaOpciones) ; $j++){
-                                            $opcion=$listaOpciones[$j];
-                         
-                                            if(is_array($respuesta)){
-                                                    foreach ($respuesta as $key ) {
-                                                        if($key==$opcion["id_opcion"]){
-                                                            $respuestaCheck=$opcion["id_opcion"];
-                                                        }
+
+                                        for ($j = 0; $j < count($listaOpciones); $j++) {
+                                            $opcion = $listaOpciones[$j];
+
+                                            if (is_array($respuesta)) {
+                                                foreach ($respuesta as $key) {
+                                                    if ($key == $opcion["id_opcion"]) {
+                                                        $respuestaCheck = $opcion["id_opcion"];
                                                     }
-                            
-                                                
+                                                }
                                             }
                                         ?>
-                                        <ul class="list-group">
-                                            <li class="list-group-item">
-                                                <div class="form-check">
-                                                    <input disabled class="form-check-input" type="<?= $pregunta['multiple']==0?'radio':'checkbox'?>"
-                                                   <?= $respuestaCheck==$opcion["id_opcion"]?"checked":"" ?>>
-                                                    <label class="form-check-label" for="<?= $opcion['id_opcion']?>">
-                                                        <?= $opcion["texto"]?>
-                                                    </label>
+                                            <ul class="list-group">
+                                                <li class="list-group-item">
+                                                    <div class="form-check">
+                                                        <input disabled class="form-check-input" type="<?= $pregunta['multiple'] == 0 ? 'radio' : 'checkbox' ?>" <?= $respuestaCheck == $opcion["id_opcion"] ? "checked" : "" ?>>
+                                                        <label class="form-check-label" for="<?= $opcion['id_opcion'] ?>">
+                                                            <?= $opcion["texto"] ?>
+                                                        </label>
 
 
-                                                </div>
-                                            </li>
-              
-                                        </ul>
+                                                    </div>
+                                                </li>
+
+                                            </ul>
                                         <?php } ?>
                                     </div>
                                 </div>
@@ -160,17 +183,17 @@ if ($_SESSION['id_usuario'] != null) {
 
                         </div>
                     <?php
-                    
-                    }?>
+
+                    } ?>
                     <div class="text-center">
-                    <a href="./listadoTest.php" class="btn btn-primary"  >Finalizar</a>
+                        <a href="./listadoTest.php" class="btn btn-primary">Finalizar</a>
                     </div>
-                    
+
                 <?php } else { ?>
                     <p class=" text-danger txtError"><?= $loginError ?></p>
                     <a href="./login.html" class="btn btn-sm btn-outline-secondary me-2">Volver</a>
                 <?php } ?>
-              
+
             </div>
         </div>
 
