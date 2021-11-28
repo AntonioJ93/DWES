@@ -21,7 +21,7 @@ if (isset($_SESSION['id_usuario']))
         //buscar preguntas del test
         include "buscarPreguntas.php";
 
-        //recuperamos las respuestas
+        //recuperamos las opciones marcadas
         $respuestas = array();
         foreach ($listaPreguntas as &$preg) {
             if (isset($_POST[$preg["id_pregunta"]])) {
@@ -43,8 +43,38 @@ include "buscarOpcionesCorrectas.php";
 $preguntasCorrectas = array();
 $preguntasIncorrectas = array();
 $preguntasNoContestadas = array();
-foreach ($opcionesCorrectas as $op) {
-    foreach ($respuestas as $resp) {
+
+
+
+
+for ($i=0; $i<count($opcionesCorrectas); $i++) { 
+    //$op=$opcionesCorrectas[$i];
+    //var_dump($op);
+    
+    //$respuestas[$i]==$opcionesCorrectas[$i]["id_opcion"];
+   // var_dump($opcionesCorrectas[$i]["id_pregunta"]);
+    if($respuestas[$i]==null){
+        var_dump($respuestas[$i]);
+        $x=$opcionesCorrectas[$i]["id_pregunta"];
+        array_push($preguntasNoContestadas,$x );
+    }elseif(in_array($opcionesCorrectas[$i]["id_opcion"],$respuestas)){
+        array_push($preguntasCorrectas, $opcionesCorrectas[$i]["id_pregunta"]);
+    }
+//var_dump($preguntasNoContestadas);
+//var_dump($preguntasNoContestadas);
+
+}
+
+
+
+
+
+
+
+
+
+//foreach ($opcionesCorrectas as $op) {
+    //foreach ($respuestas as $resp) {
 
 
         /*        if(is_array($respuesta)){
@@ -55,19 +85,23 @@ foreach ($opcionesCorrectas as $op) {
                 }
             
         }*/
-
-
-        if ($resp == null) {
+        //var_dump($op);
+        //var_dump(in_array($op["id_opcion"],$respuestas));
+     /*   if ($op["id_opcion"] == null) {
             array_push($preguntasNoContestadas, $op["id_pregunta"]);
-        } elseif ($resp == $op["id_opcion"]) {
+        } elseif ( in_array($op["id_opcion"],$respuestas)) {
+            var_dump($respuestas[$op["id_pregunta"]]);
             array_push($preguntasCorrectas, $op["id_pregunta"]);
         } else {
             array_push($preguntasIncorrectas, $op["id_pregunta"]);
         }
-    }
-}
-var_dump($preguntasCorrectas);
-var_dump($preguntasNoContestadas);
+    }*/
+//}
+//var_dump($preguntasNoContestadas);
+//var_dump($preguntasCorrectas);
+//var_dump($preguntasIncorrectas);
+//var_dump($preguntasCorrectas);
+//var_dump($preguntasNoContestadas);
 
 ?>
 
