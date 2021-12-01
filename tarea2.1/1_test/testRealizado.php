@@ -2,106 +2,35 @@
 
 include "conexion.php";
 
-$login = false;
-
-$loginError = "Credenciales incorrectas";
 
 session_start();
-if (isset($_SESSION['id_usuario']))
-    if ($_SESSION['id_usuario'] != null) {
-        //usuario logueado
-        $login = true;
-
-        //test seleccionado
-        $idTest = $_SESSION["idTest"];
-
-        //buscar test
-        include "buscarTestPorId.php";
-
-        //buscar preguntas del test
-        include "buscarPreguntas.php";
-
-        //recuperamos las opciones marcadas
-        $respuestas = array();
-        foreach ($listaPreguntas as &$preg) {
-            if (isset($_POST[$preg["id_pregunta"]])) {
-                array_push($respuestas, $_POST[$preg["id_pregunta"]]);
-            } else {
-                array_push($respuestas, null);
-            }
-        }
+if (!isset($_SESSION["id_usuario"])) {
+    // si no hay usuario
+    header("Location: login.php");
+} else {
+    if (!isset($_GET["idTest"])) {
+        // si no hay test
+        header("Location: listadoTest.php");
     }
+    //test seleccionado
+    $idTest = $_GET["idTest"];
+    $preguntasCorrectas = $_SESSION["preguntasCorrectas"];
+    $preguntasInorrectas = $_SESSION["preguntasInorrectas"];
 
+    $respuestasCorrectas = $_SESSION["respuestasCorrectas"];
+    $respuestasIncorrectas = $_SESSION["respuestasIncorrectas"];
+    $nota = $_SESSION["nota"];
 
-////////////////////////////////////////////
-// mostrar calificación
-////////////////////////////////////////////
+    $respuestas = array_merge($respuestasCorrectas, $respuestasIncorrectas);
+ 
+    //buscar test
+    include "buscarTestPorId.php";
 
-include "buscarOpcionesCorrectas.php";
-
-// Calcular calificación
-$preguntasCorrectas = array();
-$preguntasIncorrectas = array();
-$preguntasNoContestadas = array();
-
-
-
-
-for ($i=0; $i<count($opcionesCorrectas); $i++) { 
-    //$op=$opcionesCorrectas[$i];
-    //var_dump($op);
-    
-    //$respuestas[$i]==$opcionesCorrectas[$i]["id_opcion"];
-   // var_dump($opcionesCorrectas[$i]["id_pregunta"]);
-    if($respuestas[$i]==null){
-        var_dump($respuestas[$i]);
-        $x=$opcionesCorrectas[$i]["id_pregunta"];
-        array_push($preguntasNoContestadas,$x );
-    }elseif(in_array($opcionesCorrectas[$i]["id_opcion"],$respuestas)){
-        array_push($preguntasCorrectas, $opcionesCorrectas[$i]["id_pregunta"]);
-    }
-//var_dump($preguntasNoContestadas);
-//var_dump($preguntasNoContestadas);
-
+    //buscar preguntas del test
+    include "buscarPreguntas.php";
 }
 
 
-
-
-
-
-
-
-
-//foreach ($opcionesCorrectas as $op) {
-    //foreach ($respuestas as $resp) {
-
-
-        /*        if(is_array($respuesta)){
-                foreach ($respuesta as $key ) {
-                    if($key==$opcion["id_opcion"]){
-                        $respuestaCheck=$opcion["id_opcion"];
-                    }
-                }
-            
-        }*/
-        //var_dump($op);
-        //var_dump(in_array($op["id_opcion"],$respuestas));
-     /*   if ($op["id_opcion"] == null) {
-            array_push($preguntasNoContestadas, $op["id_pregunta"]);
-        } elseif ( in_array($op["id_opcion"],$respuestas)) {
-            var_dump($respuestas[$op["id_pregunta"]]);
-            array_push($preguntasCorrectas, $op["id_pregunta"]);
-        } else {
-            array_push($preguntasIncorrectas, $op["id_pregunta"]);
-        }
-    }*/
-//}
-//var_dump($preguntasNoContestadas);
-//var_dump($preguntasCorrectas);
-//var_dump($preguntasIncorrectas);
-//var_dump($preguntasCorrectas);
-//var_dump($preguntasNoContestadas);
 
 ?>
 
@@ -132,48 +61,49 @@ for ($i=0; $i<count($opcionesCorrectas); $i++) {
             <div class="container d-flex justify-content-between">
                 <a class="navbar-brand fw-bold" href="../inicio.html">Inicio</a>
 
-                <?php if ($login) {      ?>
-                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link px-2 text-white" aria-current="page" href="#"><?= $_SESSION['nombre'] ?></a>
-                            </li>
-                        </ul>
-                    </div>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link px-2 text-white" aria-current="page" href="#"><?= $_SESSION['nombre'] ?></a>
+                        </li>
+                    </ul>
+                </div>
 
 
-                    <div class="text-end">
-                        <a href="./cerrarSesion.php" class="btn btn-outline-warning me-2">Cerrar Sesión</a>
-                    </div>
+                <div class="text-end">
+                    <a href="./cerrarSesion.php" class="btn btn-outline-warning me-2">Cerrar Sesión</a>
+                </div>
 
-                <?php    }   ?>
+
             </div>
         </nav>
 
 
     </header>
 
+    <h1>Calificación <?= $nota ?></h1>
+
     <main class="flex-shrink-0">
 
         <section class="jumbotron text-center bg-white py-3">
             <div class="container">
-                <?php if ($login) { ?>
-                    <h1 class="jumbotron-heading"><?= $test["descripcion"] ?></h1>
-                <?php } ?>
+
+                <h1 class="jumbotron-heading"><?= $test["descripcion"] ?></h1>
+
             </div>
         </section>
 
         <div class="py-5 bg-light">
             <div class="container">
 
-                <?php if ($login && $_SESSION["USER"]) {
+                <?php if ($_SESSION["USER"]) {
 
                     //iterar preguntas
 
                     for ($i = 0; $i < count($listaPreguntas); $i++) {
-                        $respuesta = $respuestas[$i];
-                        $respuestaCheck = $respuesta;
+
                         $pregunta = $listaPreguntas[$i];
+
                 ?>
                         <div class="row justify-content-md-center">
                             <div class="col-md-8">
@@ -182,35 +112,43 @@ for ($i=0; $i<count($opcionesCorrectas); $i++) {
                                     <div class="card-body">
                                         <p class="card-title fw-bold"><?= $pregunta["texto"] ?></p>
                                         <!-- opciones -->
-                                        <?php
-                                        //buscar opciones de la pregunta
-                                        include "buscarOpcion.php";
+                                        <ul class="list-group">
+                                            <?php
+                                            //buscar opciones de la pregunta
+                                            include "buscarOpcion.php";
 
-                                        for ($j = 0; $j < count($listaOpciones); $j++) {
-                                            $opcion = $listaOpciones[$j];
+                                            for ($j = 0; $j < count($listaOpciones); $j++) {
+                                                $respuestaCheck = false;
+                                                $opcion = $listaOpciones[$j];
+                                                foreach ($respuestas as $r) {
 
-                                            if (is_array($respuesta)) {
-                                                foreach ($respuesta as $key) {
-                                                    if ($key == $opcion["id_opcion"]) {
-                                                        $respuestaCheck = $opcion["id_opcion"];
+
+                                                    if ($opcion["id_opcion"] == $r) {
+                                                        $respuestaCheck = true;
+                                                        break;
                                                     }
-                                                }
-                                            }
-                                        ?>
-                                            <ul class="list-group">
+                                                    if (is_array($r)) {
+                                                       if( array_search($opcion["id_opcion"],$r)!==false){
+                                                        $respuestaCheck = true;
+                                                        break;
+                                                       }
+
+                                                    }
+
+                                                    
+                                                }    ?>
                                                 <li class="list-group-item">
                                                     <div class="form-check">
-                                                        <input disabled class="form-check-input" type="<?= $pregunta['multiple'] == 0 ? 'radio' : 'checkbox' ?>" <?= $respuestaCheck == $opcion["id_opcion"] ? "checked" : "" ?>>
+                                                        <input disabled class="form-check-input" type="<?= $pregunta['multiple'] == 0 ? 'radio' : 'checkbox' ?>" <?= $respuestaCheck ? "checked" : "" ?>>
                                                         <label class="form-check-label" for="<?= $opcion['id_opcion'] ?>">
                                                             <?= $opcion["texto"] ?>
                                                         </label>
 
-
                                                     </div>
                                                 </li>
 
-                                            </ul>
-                                        <?php } ?>
+                                            <?php } ?>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -223,9 +161,6 @@ for ($i=0; $i<count($opcionesCorrectas); $i++) {
                         <a href="./listadoTest.php" class="btn btn-primary">Finalizar</a>
                     </div>
 
-                <?php } else { ?>
-                    <p class=" text-danger txtError"><?= $loginError ?></p>
-                    <a href="./login.html" class="btn btn-sm btn-outline-secondary me-2">Volver</a>
                 <?php } ?>
 
             </div>

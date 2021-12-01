@@ -13,75 +13,85 @@ $idTest = $_SESSION["idTest"];
 include "buscarPreguntas.php";
 
 //recuperamos las opciones marcadas
-$respuestas = array();
-foreach ($listaPreguntas as &$preg) {
-    if (isset($_POST[$preg["id_pregunta"]])) {
-        array_push($respuestas, $_POST[$preg["id_pregunta"]]);
-    }
-}
-
-
-
-////////////////////////////////////////////
-// mostrar calificación
-////////////////////////////////////////////
-
-include "buscarOpcionesCorrectas.php";
-
-// Calcular calificación
+$respuestasCorrectas = array();
+$respuestasIncorrectas = array();
 $preguntasCorrectas = array();
 $preguntasIncorrectas = array();
+foreach ($listaPreguntas as &$preg) {
+    if (isset($_POST[$preg["id_pregunta"]])) { //comprobar si ha contestado esa pregunta
 
+        $idPregunta = $preg["id_pregunta"];
+        include "buscarOpcionesCorrectas.php";
+        $respuesta = $_POST[$preg["id_pregunta"]];
+        //comprobar si es multiple
+        if ($preg["multiple"] == 0) {
+            //no es multiple
+            if ($respuesta == $opcionesCorrectas[0]["id_opcion"]) {
+                array_push($preguntasCorrectas, $idPregunta);
+                array_push($respuestasCorrectas, $respuesta);
+            } else {
+                array_push($preguntasIncorrectas, $idPregunta);
+                array_push($respuestasIncorrectas, $respuesta);
+            }
+        } else {
 
+            foreach ($respuesta as $resp) {
+                $preguntaCorrecta = true;
+                foreach ($opcionesCorrectas as $oc) {
+                    $aux = false;
+                    $oc["id_opcion"];
+                    if ($resp== $oc["id_opcion"]) {
+                        $aux = true;
+                     
+                    }
+                    $preguntaCorrecta = $preguntaCorrecta && $aux;
+                }
 
+                
+            }
 
-for ($i = 0; $i < count($opcionesCorrectas); $i++) {
-// hay que buscar pregunta a pregunta en la bbdd las correctas y las incorrectas
-   if (in_array($opcionesCorrectas[$i]["id_opcion"], $respuestas)) {
-        array_push($preguntasCorrectas, $opcionesCorrectas[$i]["id_pregunta"]);
-    }else{
-        array_push($preguntasIncorrectas, $opcionesCorrectas[$i]["id_pregunta"]);
+            if ($preguntaCorrecta) {
+                array_push($preguntasCorrectas, $idPregunta);
+                array_push($respuestasCorrectas, $respuesta);
+            } else {
+                array_push($preguntasIncorrectas, $idPregunta);
+                array_push($respuestasIncorrectas, $respuesta);
+            }
+        }
     }
-    
-    //var_dump($preguntasNoContestadas);
-
 }
 
 
-var_dump($preguntasCorrectas);
-echo "================";
-var_dump($preguntasIncorrectas);
+
+////////////////////////////////////////////
+// Cáculo de calificación
+////////////////////////////////////////////
+
+// se resta 0.3 por pregunta errónea
+const RESTA_ERROR = 0.3;
+
+$nota = count($respuestasCorrectas) - (count($respuestasIncorrectas) * RESTA_ERROR);
+if($nota<0){
+    $nota=0;
+}
+
+echo "nota= " . $nota;
 
 
+//guardar calificación
+include "buscarIntentos.php";
+include "insertarCaificacion.php";
 
+//terminar intento
+$idTest = $_SESSION["idTest"];
+unset($_SESSION["idTest"]);
 
+//ver informacion del intento
+//pasar idTest
+$_SESSION["preguntasCorrectas"] = $preguntasCorrectas;
+$_SESSION["preguntasInorrectas"] = $preguntasIncorrectas;
+$_SESSION["respuestasCorrectas"] = $respuestasCorrectas;
+$_SESSION["respuestasIncorrectas"] = $respuestasIncorrectas;
+$_SESSION["nota"] = $nota;
 
-//foreach ($opcionesCorrectas as $op) {
-    //foreach ($respuestas as $resp) {
-
-
-        /*        if(is_array($respuesta)){
-                foreach ($respuesta as $key ) {
-                    if($key==$opcion["id_opcion"]){
-                        $respuestaCheck=$opcion["id_opcion"];
-                    }
-                }
-            
-        }*/
-        //var_dump($op);
-        //var_dump(in_array($op["id_opcion"],$respuestas));
-     /*   if ($op["id_opcion"] == null) {
-            array_push($preguntasNoContestadas, $op["id_pregunta"]);
-        } elseif ( in_array($op["id_opcion"],$respuestas)) {
-            var_dump($respuestas[$op["id_pregunta"]]);
-            array_push($preguntasCorrectas, $op["id_pregunta"]);
-        } else {
-            array_push($preguntasIncorrectas, $op["id_pregunta"]);
-        }
-    }*/
-//}
-//var_dump($preguntasNoContestadas);
-//var_dump($preguntasCorrectas);
-//var_dump($preguntasIncorrectas);
-//var_dump($preguntasCorrectas);
-//var_dump($preguntasNoContestadas);
+header("Location: testRealizado.php?idTest=" . $idTest);

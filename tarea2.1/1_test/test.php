@@ -8,7 +8,10 @@ if (!isset($_SESSION["id_usuario"])) {
     // si no hay usuario
     header("Location: login.php");
 } else {
-
+    if (!isset($_SESSION["idTest"])) {
+        // si no hay test
+        header("Location: listadoTest.php");
+    }
     //test seleccionado
     $idTest = $_SESSION["idTest"];
 

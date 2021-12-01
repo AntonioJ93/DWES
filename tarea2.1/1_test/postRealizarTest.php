@@ -16,15 +16,15 @@ if (!isset($_SESSION["id_usuario"])) {
     //buscar intetos del test
     include "buscarIntentos.php";
 
-    if ($testRealizado > 0) {
+    if ($testRealizado["intento"] > 0) {
         if (isset($_SESSION["idTest"])) {
             if ($_SESSION["idTest"] != $idTest) {
                 //descontamos un intento
-                include "descontarIntento.php.php";
+                include "descontarIntento.php";
             }
         } else {
             //descontamos un intento
-            include "descontarIntento.php.php";
+            include "descontarIntento.php";
         }
     } else {
         header("Location: login.php");
