@@ -1,8 +1,8 @@
 <?php
 /* Conectar a una base de datos de MySQL invocando al controlador */
-$dsn = 'mysql:dbname=ud2_test;host=127.0.0.1:3306';
-$usuario = 'root';
-$contraseña = '';
+$dsn = 'mysql:dbname=ud2_test;host=34.65.125.44:3306';
+$usuario = 'facelessjob';
+$contraseña = 'Fullstack.2021';
 
 try {
     $conexion = new PDO($dsn, $usuario, $contraseña);

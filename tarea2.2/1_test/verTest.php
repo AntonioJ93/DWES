@@ -8,26 +8,15 @@ if (!isset($_SESSION["id_usuario"])) {
     // si no hay usuario
     header("Location: login.php");
 } else {
-    if (!isset($_GET["idTest"])) {
+    if (!isset($_GET["idTestRealizado"])) {
         // si no hay test
         header("Location: listadoTest.php");
     }
     //test seleccionado
-    $idTest = $_GET["idTest"];
-    $preguntasCorrectas = $_SESSION["preguntasCorrectas"];
-    $preguntasInorrectas = $_SESSION["preguntasInorrectas"];
+    $idTest = $_GET["idTestRealizado"];
 
-    $respuestasCorrectas = $_SESSION["respuestasCorrectas"];
-    $respuestasIncorrectas = $_SESSION["respuestasIncorrectas"];
-    $nota = $_SESSION["nota"];
-
-    $respuestas = array_merge($respuestasCorrectas, $respuestasIncorrectas);
- 
-    //buscar test
-    include "buscarTestPorId.php";
-
-    //buscar preguntas del test
-    include "buscarPreguntas.php";
+    //buscar preguntas del examen
+    include "buscarExamen.php";
 }
 
 
@@ -88,24 +77,22 @@ if (!isset($_SESSION["id_usuario"])) {
         <section class="jumbotron text-center bg-white py-3">
             <div class="container">
 
-                <h1 class="jumbotron-heading"><?= $test["descripcion"] ?></h1>
-                <h2 class="text-center">Calificación <?= $nota ?></h2>
+                <h1 class="jumbotron-heading"><?= $preguntas[0]["descripcion"] ?></h1>
+                <h2 class="text-center">Calificación <?= $preguntas[0]["calificacion"] ?></h2>
             </div>
         </section>
 
         <div class="py-5 bg-light">
             <div class="container">
 
-                <?php if ($_SESSION["USER"]) {
+                <?php 
 
                     //iterar preguntas
 
-                    for ($i = 0; $i < count($listaPreguntas); $i++) {
+                    for ($i = 0; $i < count($preguntas); $i++) {
                         $bgPregunta="";
-                        $pregunta = $listaPreguntas[$i];
-                        if(array_search($pregunta["id_pregunta"],$preguntasCorrectas)!==false){
-                            $bgPregunta="bg-success";
-                        }
+                        $pregunta = $preguntas[$i];
+
 
                 ?>
                         <div class="row justify-content-md-center">
@@ -113,9 +100,7 @@ if (!isset($_SESSION["id_usuario"])) {
                                 <div class="card mb-4 box-shadow p-4">
 
                                     <div class="card-body">
-                                    <span class="fw-bold text-success">
-                                        <?= $bgPregunta=="bg-success"?"Pregunta Correcta":""?>
-                                    </span>
+
                                         <p class="card-title fw-bold "><?= $pregunta["texto"] ?> </p>
                                     
                                         <ul class="list-group">
@@ -123,21 +108,27 @@ if (!isset($_SESSION["id_usuario"])) {
                                             //buscar opciones de la pregunta
                                             include "buscarOpcion.php";
 
-                                            for ($j = 0; $j < count($listaOpciones); $j++) {
+                                            foreach($listaOpciones as $opcion)
+                                            {
                                                 $respuestaCheck = false;
                                      
-                                                $opcion = $listaOpciones[$j];
+                                            
+
+                                                //buscar respuestas a la pregunta
+                                                include "buscarRespuestas.php";
+                                                
                                                 foreach ($respuestas as $r) {
+                                                    
+                                               
 
-
-                                                    if ($opcion["id_opcion"] == $r) {
+                                                    if ($opcion["id_opcion"] == $r["opcion_opcion_respondida"]) {
                                                         $respuestaCheck = true;
                                                       
                                                         break;
                                                     }
-                                                    if (is_array($r)) {
+                                                    if (is_array($r["opcion_opcion_respondida"])) {
                                                   
-                                                       if( array_search($opcion["id_opcion"],$r)!==false){
+                                                       if( array_search($opcion["id_opcion"],$r["opcion_opcion_respondida"])!==false){
                                                         $respuestaCheck = true;
                                                        
                                                         break;
@@ -171,7 +162,7 @@ if (!isset($_SESSION["id_usuario"])) {
                         <a href="./listadoTest.php" class="btn btn-primary">Finalizar</a>
                     </div>
 
-                <?php } ?>
+              
 
             </div>
         </div>

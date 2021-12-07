@@ -156,17 +156,27 @@ if (!isset($_SESSION["id_usuario"])) {
 
                                         ?>
                                             <tr>
-
+                                            <a href="./verTest.php?idTest=<?= $idTest?>&idUsuario=<?= $test["id_usuario"]?>"></a>
                                                 <td><?= $test["nombre"] ?></td>
                                                 <td><?= $test["descripcion"] ?></td>
 
                                                 <?php include "buscarNotas.php";
                                                 ?>
-                                                <td><?= isset($notas[0]["calificacion"]) ? $notas[0]["calificacion"] : "" ?></td>
-                                                <td><?= isset($notas[1]["calificacion"]) ? $notas[1]["calificacion"] : "" ?></td>
-                                                <td><?= isset($notas[2]["calificacion"]) ? $notas[2]["calificacion"] : "" ?></td>
+                                                <td> <a href="./verTest.php?idTestRealizado= <?= isset($notas[0]["id_test_realizados"]) ? $notas[0]["id_test_realizados"] : "" ?>" >
+                                                <?= isset($notas[0]["calificacion"]) ? $notas[0]["calificacion"] : "" ?></a>
+                                                </td>
+
+                                                <td> <a href="./verTest.php?idTestRealizado= <?= isset($notas[1]["id_test_realizados"]) ? $notas[1]["id_test_realizados"] : "" ?>" >
+                                                <?= isset($notas[1]["calificacion"]) ? $notas[1]["calificacion"] : "" ?></a>
+                                                </td>
+
+                                                <td> <a href="./verTest.php?idTestRealizado= <?= isset($notas[2]["id_test_realizados"]) ? $notas[2]["id_test_realizados"] : "" ?>" >
+                                                <?= isset($notas[2]["calificacion"]) ? $notas[2]["calificacion"] : "" ?></a>
+                                                </td>
                                                 <?php ?>
                                                 <td><?= $media["Promedio"] ?></td>
+                                                
+                                                
                                             </tr>
                                         <?php }
                                         ?>

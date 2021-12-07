@@ -37,11 +37,13 @@ foreach ($listaPreguntas as &$preg) {
                 // guardar aciertos y fallos
                 include "insertarFallos.php";
             }
+            include "guardarRespuesta.php";
+            include "guardarOpcion.php";
         } else {
-
+            include "guardarRespuesta.php";
+            include "guardarOpcion.php";
+            $preguntaCorrecta = true;
             foreach ($respuesta as $resp) {
-
-                $preguntaCorrecta = true;
 
                 foreach ($opcionesCorrectas as $op) {
                     $aux = false;
