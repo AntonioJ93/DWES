@@ -41,7 +41,7 @@ foreach ($listaPreguntas as &$preg) {
             include "guardarOpcion.php";
         } else {
             include "guardarRespuesta.php";
-            include "guardarOpcion.php";
+            
             $preguntaCorrecta = true;
             foreach ($respuesta as $resp) {
 
@@ -51,7 +51,7 @@ foreach ($listaPreguntas as &$preg) {
                         $aux = true;
                     }
                 }
-
+                include "guardarOpcion.php";
                 $preguntaCorrecta = $preguntaCorrecta && $aux;
             }
 

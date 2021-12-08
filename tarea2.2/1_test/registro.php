@@ -37,31 +37,39 @@
 
                 <div class="row justify-content-md-center">
                     <div class="col-md-4 form-signin bg-white p-5">
-                        <form action="./postLogin.php" method="post">
-                            <h1 class="h3 mb-3 fw-normal">Iniciar Sesión</h1>
-                            <div class=" bg-light px-2 "> 
-                                <p>Profesor: </p>
-                                <p>correo: admin@admin.com </p>
-                                <p>Contraseña: Admin111 </p>
-                                <p>Alumno: </p>
-                                <p>correo: juan@gmail.com </p>
-                                <p>Contraseña: Juan111111 </p>
+                        <form action="./postRegistro.php" method="post">
+                            <h1 class="h3 mb-3 fw-normal">Registro</h1>
+                            
+                            <div class="form-floating">
+                                <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Nombre">
+                                <label for="nombre">Nombre</label>
                             </div>
 
                             <div class="form-floating">
                                 <input type="email" name="correo" class="form-control" id="floatingInput" placeholder="name@example.com">
                                 <label for="floatingInput">Correo</label>
                             </div>
-                            <div class="form-floating pb-5">
+                            <div class="form-floating">
+                                <input type="email" name="confCorreo" class="form-control" id="confCorreo" placeholder="name@example.com">
+                                <label for="confCorreo">Confirmar correo</label>
+                            </div>
+                            <div class="form-floating ">
                                 <input type="password" name="pass" class="form-control" id="floatingPassword" placeholder="Contraseña">
                                 <label for="floatingPassword">Contraseña</label>
                             </div>
-                            <p>No tiene cuenta, <a href="./registro.php">Regístrese</a></p>
+                            <div class="form-floating pb-5">
+                                <input type="password" name="confPass" class="form-control" id="confPass" placeholder="Contraseña">
+                                <label for="confPass">Confirmar Contraseña</label>
+                            </div>
+                            <p>Tiene cuenta, <a href="./login.php">Iniciar Sesión</a></p>
                             <input value="Enviar" name="submit" class="w-100 btn btn-lg btn-primary" type="submit" />
                             <?php  session_start(); 
-                                if(isset($_SESSION["loginError"])||isset($_SESSION["passError"])||isset($_SESSION["correoError"])){                                                  ?>
+                                if(isset($_SESSION["confCorreoError"])||isset($_SESSION["passError"])||isset($_SESSION["correoError"])
+                                ||isset($_SESSION["confPassError"])||isset($_SESSION["registroError"])){                                                  ?>
                                 <div class="alert alert-danger mt-3" role="alert">
-                                    <p><?= isset($_SESSION["loginError"])?$_SESSION["loginError"]:"" ?></p>
+                                    <p><?= isset($_SESSION["registroError"])?$_SESSION["registroError"]:"" ?></p>
+                                    <p><?= isset($_SESSION["confCorreoError"])?$_SESSION["confCorreoError"]:"" ?></p>
+                                    <p><?= isset($_SESSION["confPassError"])?$_SESSION["confPassError"]:"" ?></p>
                                     <p><?= isset($_SESSION["passError"])?$_SESSION["passError"]:"" ?></p>
                                     <p><?= isset($_SESSION["correoError"])?$_SESSION["correoError"]:"" ?></p>
                                 </div>
