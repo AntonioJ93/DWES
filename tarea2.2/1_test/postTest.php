@@ -42,7 +42,32 @@ foreach ($listaPreguntas as &$preg) {
         } else {
             include "guardarRespuesta.php";
             
-            $preguntaCorrecta = true;
+            for ($i=0; $i < count($opcionesCorrectas); $i++) { 
+                $arrayId[$i]=$opcionesCorrectas[$i]["id_opcion"];
+            }
+         
+            if($arrayId==$respuesta){
+                //pregunta correcta
+                array_push($preguntasCorrectas, $idPregunta);
+                array_push($respuestasCorrectas, $respuesta);
+
+                 //guardar aciertos y fallos
+                include "insertarAciertos.php";
+            }else{
+                //pregunta incorrecta
+                array_push($preguntasIncorrectas, $idPregunta);
+                array_push($respuestasIncorrectas, $respuesta);
+                // guardar aciertos y fallos
+                include "insertarFallos.php";
+            }
+  
+        
+            foreach ($respuesta as $resp) {
+            
+                include "guardarOpcion.php";
+            }
+          
+           /* $preguntaCorrecta = true;
             foreach ($respuesta as $resp) {
 
                 foreach ($opcionesCorrectas as $op) {
@@ -66,7 +91,7 @@ foreach ($listaPreguntas as &$preg) {
                 array_push($respuestasIncorrectas, $respuesta);
                 // guardar aciertos y fallos
                 include "insertarFallos.php";
-            }
+            }*/
         }
     }
 }
