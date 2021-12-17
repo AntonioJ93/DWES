@@ -48,7 +48,7 @@ if (!isset($_SESSION["id_usuario"])) {
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container d-flex justify-content-between">
-                <a class="navbar-brand fw-bold" href="../inicio.html">Inicio</a>
+                <a class="navbar-brand fw-bold" href="../index.html">Inicio</a>
 
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">

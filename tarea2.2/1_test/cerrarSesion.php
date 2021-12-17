@@ -28,7 +28,7 @@ session_destroy();
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container d-flex justify-content-between">
-                <a class="navbar-brand fw-bold" href="../inicio.html">Inicio</a>
+                <a class="navbar-brand fw-bold" href="../index.html">Inicio</a>
             </div>
         </nav>
 
@@ -46,7 +46,7 @@ session_destroy();
                         
                             <h1 class="h3 mb-3 fw-normal">Sesión Cerrada</h1>
 
-                            <a  class="w-100 btn btn-lg btn-primary" href="../inicio.html" alt="Inicio" >Inicio</a>
+                            <a  class="w-100 btn btn-lg btn-primary" href="../index.html" alt="Inicio" >Inicio</a>
                             
          
                     </div>
