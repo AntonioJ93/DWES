@@ -1,11 +1,11 @@
 {
-  "require" : {
-    "silex/silex": "^2.0.4",
-    "monolog/monolog": "^1.22",
-    "twig/twig": "^2.0",
-    "symfony/twig-bridge": "^3"
-  },
-  "require-dev": {
-    "heroku/heroku-buildpack-php": "*"
-  }
+    "name": "antonio/test",
+    "description": "web_test",
+    "type": "mine",
+    "license": "gpl",
+    "minimum-stability": "stable",
+    "require": {},
+    "require-dev": {
+	"heroku/heroku-buildpack-php":"*"
+	}
 }
