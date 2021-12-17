@@ -22,7 +22,7 @@ foreach ($listaPreguntas as &$preg) {
 
         $idPregunta = $preg["id_pregunta"];
         include "buscarOpcionesCorrectas.php";
-        $respuesta = $_POST[$preg["id_pregunta"]];
+        $respuesta = $_POST[$idPregunta];
         //comprobar si es multiple
         if ($preg["multiple"] == 0) {
             //no es multiple
@@ -45,7 +45,7 @@ foreach ($listaPreguntas as &$preg) {
             for ($i=0; $i < count($opcionesCorrectas); $i++) { 
                 $arrayId[$i]=$opcionesCorrectas[$i]["id_opcion"];
             }
-         
+
             if($arrayId==$respuesta){
                 //pregunta correcta
                 array_push($preguntasCorrectas, $idPregunta);
@@ -61,37 +61,11 @@ foreach ($listaPreguntas as &$preg) {
                 include "insertarFallos.php";
             }
   
-        
+            unset($arrayId);
             foreach ($respuesta as $resp) {
             
                 include "guardarOpcion.php";
             }
-          
-           /* $preguntaCorrecta = true;
-            foreach ($respuesta as $resp) {
-
-                foreach ($opcionesCorrectas as $op) {
-                    $aux = false;
-                    if (array_search($resp, $op) !== false) {
-                        $aux = true;
-                    }
-                }
-                include "guardarOpcion.php";
-                $preguntaCorrecta = $preguntaCorrecta && $aux;
-            }
-
-            if ($preguntaCorrecta) {
-                array_push($preguntasCorrectas, $idPregunta);
-                array_push($respuestasCorrectas, $respuesta);
-
-                // guardar aciertos y fallos
-                include "insertarAciertos.php";
-            } else {
-                array_push($preguntasIncorrectas, $idPregunta);
-                array_push($respuestasIncorrectas, $respuesta);
-                // guardar aciertos y fallos
-                include "insertarFallos.php";
-            }*/
         }
     }
 }

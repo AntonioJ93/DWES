@@ -49,11 +49,11 @@
                             </div>
 
                             <div class="form-floating">
-                                <input type="email" name="correo" class="form-control" id="floatingInput" placeholder="name@example.com">
+                                <input type="email" name="correo" class="form-control" id="floatingInput" placeholder="nombre@ejemplo.com" required>
                                 <label for="floatingInput">Correo</label>
                             </div>
                             <div class="form-floating pb-5">
-                                <input type="password" name="pass" class="form-control" id="floatingPassword" placeholder="Contraseña">
+                                <input type="password" name="pass" class="form-control" id="floatingPassword" placeholder="Contraseña" required>
                                 <label for="floatingPassword">Contraseña</label>
                             </div>
                             <p>No tiene cuenta, <a href="./registro.php">Regístrese</a></p>
