@@ -41,24 +41,24 @@
                             <h1 class="h3 mb-3 fw-normal">Registro</h1>
                             
                             <div class="form-floating">
-                                <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Nombre">
+                                <input required type="text" name="nombre" class="form-control" id="nombre" placeholder="Nombre">
                                 <label for="nombre">Nombre</label>
                             </div>
 
                             <div class="form-floating">
-                                <input type="email" name="correo" class="form-control" id="floatingInput" placeholder="name@example.com">
+                                <input required type="email" name="correo" class="form-control" id="floatingInput" placeholder="name@example.com">
                                 <label for="floatingInput">Correo</label>
                             </div>
                             <div class="form-floating">
-                                <input type="email" name="confCorreo" class="form-control" id="confCorreo" placeholder="name@example.com">
+                                <input required type="email" name="confCorreo" class="form-control" id="confCorreo" placeholder="name@example.com">
                                 <label for="confCorreo">Confirmar correo</label>
                             </div>
                             <div class="form-floating ">
-                                <input type="password" name="pass" class="form-control" id="floatingPassword" placeholder="Contraseña">
+                                <input required type="password" name="pass" class="form-control" id="floatingPassword" placeholder="Contraseña">
                                 <label for="floatingPassword">Contraseña</label>
                             </div>
                             <div class="form-floating pb-5">
-                                <input type="password" name="confPass" class="form-control" id="confPass" placeholder="Contraseña">
+                                <input required type="password" name="confPass" class="form-control" id="confPass" placeholder="Contraseña">
                                 <label for="confPass">Confirmar Contraseña</label>
                             </div>
                             <p>Tiene cuenta, <a href="./login.php">Iniciar Sesión</a></p>

@@ -70,6 +70,7 @@ if (!isset($_SESSION["id_usuario"])) {
         <section class="jumbotron text-center bg-white py-3">
             <div class="container">
                 <h1 class="jumbotron-heading"><?= $test["descripcion"] ?></h1>
+                <h4 class="jumbotron-heading">Cada pregunta errónea resta 0.3 puntos</h4>
             </div>
         </section>
 
@@ -124,7 +125,7 @@ if (!isset($_SESSION["id_usuario"])) {
                         <?php
                         } ?>
                         <div class="text-center">
-                            <input value="Enviar" name="submit" class="btn btn-primary" type="submit" />
+                            <input value="Finalizar Intento" name="submit" class="btn btn-primary" type="submit" />
                         </div>
 
                     <?php } ?>
