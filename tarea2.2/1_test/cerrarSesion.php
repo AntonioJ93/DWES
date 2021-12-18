@@ -46,7 +46,7 @@ session_destroy();
                         
                             <h1 class="h3 mb-3 fw-normal">Sesión Cerrada</h1>
 
-                            <a  class="w-100 btn btn-lg btn-primary" href="../index.html" alt="Inicio" >Inicio</a>
+                            <a  class="w-100 btn btn-lg btn-primary" href="../index.php" alt="Inicio" >Inicio</a>
                             
          
                     </div>
