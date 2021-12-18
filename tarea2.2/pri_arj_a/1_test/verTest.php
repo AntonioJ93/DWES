@@ -55,14 +55,6 @@ if (!isset($_SESSION["id_usuario"])) {
                         <li class="nav-item">
                             <span class="nav-link px-2 text-white" ><?= $_SESSION['nombre'] ?></span>
                         </li>
-                        <?php if ($_SESSION["ADMIN"]) { ?>
-                            <li class="nav-item">
-                                <a class="nav-link px-2 text-white" href="./estadisticas.php">Estadisticas de test</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link px-2 text-white" href="./listadoTest.php">Alumnos</a>
-                            </li>
-                        <?php } ?>
                     </ul>
                 </div>
 
