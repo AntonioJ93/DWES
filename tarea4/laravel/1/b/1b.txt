@@ -1,0 +1,7 @@
+Mira este vídeo de principio a fin y explica de nuevo framework web y MVC.
+
+Framework: conjunto de librerias, herramientas para desarrollar software mas rápido, de forma estandar y con buenas prácticas
+MVC: Patrón de diseño software que divide la aplicacioón en tres capas Vista, Modelo y Controlador
+    -Vista documento (html, css, js) que ve el usuario
+    -Modelo mapeo de nuestra BBDD en entidades
+    -Controlador reciben las peticiones de la vista las procesan, acceden al modelo si lo necesitan y envian la vista requerida al cliente

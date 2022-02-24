@@ -1,0 +1,2 @@
+Explora la documentación oficial de Laravel y describe las diferentes formas de instalar Laravel.
+Laravel se puede instalar a traves de Docker o a traves de Composer

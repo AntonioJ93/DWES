@@ -1,0 +1,3 @@
+Mira este vídeo, di de qué trata e indica los puntos del curso que más te llaman la atención.
+
+Es una introducción a laravel, los puntos que mas me llaman la atencion son: seguridad, Eloquent, Blade y controladores
