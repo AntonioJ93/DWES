@@ -21,6 +21,10 @@ class HomeController extends Controller
         return "contacto";
     }
 
+    public function foro(){
+        return "foro";
+    }
+
     public function update($id,$nombre="nombre por defecto"){
 
         //paso de parametros a la vista
