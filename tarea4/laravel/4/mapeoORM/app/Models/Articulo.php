@@ -10,4 +10,5 @@ class Articulo extends Model
     use HasFactory;
 
     protected $table="articulo";//tabla de la bbdd a mapear
+    //protected $primaryKey="nombre de la columna pk"  la columna pk no se llama id
 }
