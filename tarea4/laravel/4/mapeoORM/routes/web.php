@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\ArticuloController;
+use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller as RoutingController;
+use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +17,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::controller(ArticuloController::class)->group(function () {
+    Route::get('/', 'index')->name("index");//se le asigna un nombre a las rutas
+    Route::get('/index', 'index')->name("index");
+    Route::get('/articulo-form', 'create')->name("articulo.form");
+    Route::get('/articulo/{id}', 'detalle')->name("articulo.detalle");
+    Route::post('/articulo', 'store')->name("articulo.store");
+    Route::get('/articulo/buscar/param', 'buscar')->name("articulo.buscar");
 });
