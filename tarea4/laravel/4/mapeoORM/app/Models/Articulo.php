@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Articulo extends Model
 {// php artisan make:model Articulo
@@ -12,6 +13,12 @@ class Articulo extends Model
 
     protected $table="articulo";//tabla de la bbdd a mapear
     //protected $primaryKey="nombre de la columna pk"  la columna pk no se llama id
+
+    //campos habilitados para la asignación masiva
+    protected $fillable=["nombre","precio","descripcion","slug"];
+
+    //campos deshabilitados para la asignación masiva
+    //protected $guarded=["enable"];
 
 
     //accesores y mutadores en php 8
@@ -35,8 +42,7 @@ class Articulo extends Model
          */
        
     }
-
-    /* antes de php 8
+     /* antes de php 8
     public function getNombreAttribute($valor){
         return ucwords($valor);
     }
@@ -45,4 +51,19 @@ class Articulo extends Model
         $this->attributes["nombre"]=strtolower($valor);
     }
 */
+
+    protected function updatedAt():Attribute{
+        return new Attribute(
+            get: function($valor){
+                return date('d-m-Y G:i:s', strtotime($valor));//cambiar formato de hora
+            }
+        );
+       
+    }
+
+    public function getRouteKeyName()
+    {
+        return "slug";//sustituir id de la ruta por slug
+    }
+   
 }

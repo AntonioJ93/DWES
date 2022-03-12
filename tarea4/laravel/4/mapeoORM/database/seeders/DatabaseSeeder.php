@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
+    /**   php artisan migrate:fresh --seed
      * Seed the application's database.
      *
      * @return void

@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('articulo', function (Blueprint $table) {
             $table->id();
-            $table->string("nombre",50);
+            $table->string("nombre");
             $table->double("precio");
-            $table->string("descripcion");
+            $table->text("descripcion");
+            $table->string("slug")->unique();
             $table->timestamps();
         });
     }

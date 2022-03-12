@@ -27,12 +27,13 @@ Route::get('php/info', function () {
 Route::controller(ArticuloController::class)->group(function () {
     Route::get('/', 'index')->name("index");//se le asigna un nombre a las rutas
     Route::get('/index', 'index')->name("index");
-    Route::get('/articulo/form', 'create')->name("articulo.create");
-    Route::get('/articulo/{articulo}', 'show')->name("articulo.show");
-    Route::post('/articulo', 'store')->name("articulo.store");
-    Route::get('/articulo/buscar/item', 'buscar')->name("articulo.buscar");
-    Route::get('/articulo/{articulo}/editar', 'edit')->name("articulo.edit");
-    Route::put('/articulo/{articulo}', 'update')->name("articulo.update");
+    Route::get('/articulos/form', 'create')->name("articulo.create");
+    Route::get('/articulos/{articulo}', 'show')->name("articulo.show");
+    Route::post('/articulos', 'store')->name("articulo.store");
+    Route::get('/articulos/buscar/item', 'buscar')->name("articulo.buscar");
+    Route::get('/articulos/{articulo}/editar', 'edit')->name("articulo.edit");
+    Route::put('/articulos/{articulo}', 'update')->name("articulo.update");
+    Route::delete('/articulos/{articulo}', 'destroy')->name("articulo.destroy");
 });
 
 /**
