@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticuloController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\MainController;
 use Illuminate\Routing\Controller as RoutingController;
 use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
@@ -16,17 +17,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-/**
- * depurar
- */
-Route::get('php/info', function () {
-    phpinfo();
-});
-
-Route::controller(ArticuloController::class)->group(function () {
+Route::controller(MainController::class)->group(function(){
     Route::get('/', 'index')->name("index");//se le asigna un nombre a las rutas
-    Route::get('/index', 'index')->name("index");
+    Route::get('/contacto', 'contacto')->name("contacto");
+    Route::post('/contacto/enviar', 'enviar')->name("enviar");
+});
+Route::controller(ArticuloController::class)->group(function () {
+    Route::get('/articulos/home', 'index')->name("articulo.home");
     Route::get('/articulos/form', 'create')->name("articulo.create");
     Route::get('/articulos/{articulo}', 'show')->name("articulo.show");
     Route::post('/articulos', 'store')->name("articulo.store");
@@ -37,5 +34,5 @@ Route::controller(ArticuloController::class)->group(function () {
 });
 
 /**
- * https://www.youtube.com/watch?v=oBxfBlV_2sU&list=PLZ2ovOgdI-kWWS9aq8mfUDkJRfYib-SvF&index=18
+ * https://www.youtube.com/watch?v=8EuErRfP4s4&list=PLZ2ovOgdI-kWWS9aq8mfUDkJRfYib-SvF&index=29
  */
