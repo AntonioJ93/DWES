@@ -20,15 +20,33 @@
                     @csrf
                     <div class="mb-3">
                       <label for="nombre" class="form-label">Nombre</label>
-                      <input type="text" name="nombre" class="form-control" id="nombre">
+                      <!-- old("nombre") recupera el valor anterior del campo -->
+                      <input type="text" value="{{old('nombre')}}" name="nombre" class="form-control  @error('nombre') is-invalid @enderror" id="nombre">
+                      <!-- muesta el error de validación-->
+                      @error('nombre')
+                        <div class="invalid-feedback">
+                          {{$message}}
+                        </div> 
+                      @enderror
+                    
                     </div>
                     <div class="mb-3">
                         <label for="precio" class="form-label">Precio</label>
-                        <input type="number" name="precio" class="form-control" id="precio">
+                        <input type="number" value="{{old('precio')}}" name="precio" class="form-control @error('precio') is-invalid @enderror" id="precio">
+                        @error('precio')
+                        <div class="invalid-feedback">
+                          {{$message}}
+                        </div> 
+                      @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="descripcion" class="form-label">Descripción</label>
-                        <textarea class="form-control" name="descripcion" id="descripcion" cols="30" rows="5"></textarea>
+                        <label for="descripcion" class="form-label">Descripción</label>                                        
+                        <textarea class="form-control @error('descripcion') is-invalid @enderror" name="descripcion" id="descripcion" cols="30" rows="5">{{old('descripcion')}}</textarea>
+                        @error('descripcion')
+                        <div class="invalid-feedback">
+                          {{$message}}
+                        </div> 
+                      @enderror
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                   </form>

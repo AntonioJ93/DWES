@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class ArticuloController extends Controller
 {
+    // protected $table="nombre de la table en BBDD"; //si es diferente el nombre a articulo
+    // protected $primaryKey="nombre de la columna de la pk"; // si es diferente a id
+
     public function index(){
         $articulos=Articulo::paginate(10);//los trae paginados con 10 de tamaño de página
         
@@ -17,15 +20,23 @@ class ArticuloController extends Controller
         return view("articulo.form-articulo");
     }
 
-    public function detalle($id){
-        $articulo=Articulo::find($id);
+    public function show(Articulo $articulo){
+       // $articulo=Articulo::find($id);
         return view("articulo.detalle",compact("articulo"));
     }
 
     public function store(Request $req){
         /**
-         * faltaría validar los datos
+         *  validar los datos
          */
+        $req->validate([
+            
+            "nombre"=>"required",
+            "precio"=>"required",
+            "descripcion"=>"required"
+        ]);
+
+
         $articulo=new Articulo();
         $articulo->nombre=$req->nombre;
         $articulo->descripcion=$req->descripcion;
@@ -40,5 +51,18 @@ class ArticuloController extends Controller
         ->orWhere("precio","<=","$req->texto")->paginate(10);
     
         return view("articulo.articulos",compact("articulos"));
+    }
+
+    public function edit(Articulo $articulo){
+        return view("articulo.editar",compact("articulo"));
+    }
+
+    public function update(Articulo $articulo,Request $req){
+        $articulo->nombre=$req->nombre;
+        $articulo->precio=$req->precio;
+        $articulo->descripcion=$req->descripcion;
+        $articulo->save();
+        return redirect()->action([ArticuloController::class, 'index'])
+    /*flash attribute*/->with('mensaje', 'Artículo actualizado correctamente');
     }
 }

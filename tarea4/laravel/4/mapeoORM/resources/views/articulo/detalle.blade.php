@@ -18,7 +18,11 @@
                 <h5 class="card-title"><?=$articulo->nombre?></h5>
                 <p class="card-text content-size">Id:<?=$articulo->id?></p>
                 <p class="card-text content-size"><?=$articulo->descripcion?></p>
-                <p class="card-text position-absolute bottom-0 pb-2"><em>Precio: </em><?=$articulo->precio?></p>
+                <p class="card-text"><em>Precio: </em><?=$articulo->precio?></p>
+                <div class="d-flex justify-content-evenly">
+                    <a class="btn btn-warning flex-fill mx-2" href="{{route('articulo.edit',$articulo)}}">Editar</a>
+                    <a class="btn btn-danger flex-fill mx-2" href="#">Eliminar</a>
+                </div>
             </div>
 
         

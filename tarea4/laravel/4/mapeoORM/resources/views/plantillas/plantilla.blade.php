@@ -27,11 +27,12 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                    
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('articulo.form')}}">Añadir artículo</a>
+                        <a class="nav-link" href="{{route('articulo.create')}}">Añadir artículo</a>
                     </li>
 
                 </ul>
                 <form class="d-flex" method="GET" action="{{route('articulo.buscar')}}">
+                    
                     <input class="form-control me-2" name="texto" type="search" placeholder="Nombre/Precio" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Buscar</button>
                 </form>

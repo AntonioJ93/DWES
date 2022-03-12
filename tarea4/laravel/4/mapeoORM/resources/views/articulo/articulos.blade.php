@@ -21,7 +21,7 @@
   @foreach ($articulos as $articulo)
   <div class="card border-info mb-3 shadow mx-3 mb-5 bg-body rounded col-3" style="width: 16rem;">
         <div class="card-header content-size ">Actualizado: <?=$articulo->updated_at?></div>
-        <a href="{{route('articulo.detalle',$articulo->id)}}" class="link-secondary text-decoration-none">
+        <a href="{{route('articulo.show',$articulo)}}" class="link-secondary text-decoration-none">
             <div class="card-body  h-100%">
                 <h5 class="card-title"><?=$articulo->nombre?></h5>
                 <p class="card-text content-size"><?=$articulo->descripcion?></p>
