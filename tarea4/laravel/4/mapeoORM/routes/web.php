@@ -1,10 +1,8 @@
 <?php
 
 use App\Http\Controllers\ArticuloController;
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\MainController;
-use Illuminate\Routing\Controller as RoutingController;
-use Illuminate\Routing\RouteGroup;
+use App\Http\Controllers\ProveedorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +29,16 @@ Route::controller(ArticuloController::class)->group(function () {
     Route::get('/articulos/{articulo}/editar', 'edit')->name("articulo.edit");
     Route::put('/articulos/{articulo}', 'update')->name("articulo.update");
     Route::delete('/articulos/{articulo}', 'destroy')->name("articulo.destroy");
+});
+Route::controller(ProveedorController::class)->group(function () {
+    Route::get('/proveedores', 'index')->name("proveedor.home");
+    Route::get('/proveedores/create', 'create')->name("proveedor.create");
+    Route::get('/proveedores/{proveedor}', 'show')->name("proveedor.show");
+    Route::post('/proveedores', 'store')->name("proveedor.store");
+    Route::get('/proveedores/buscar/item', 'buscar')->name("proveedor.buscar");
+    Route::get('/proveedores/{proveedor}/edit', 'edit')->name("proveedor.edit");
+    Route::put('/proveedores/{proveedor}', 'update')->name("proveedor.update");
+    Route::delete('/proveedores/{proveedor}', 'destroy')->name("proveedor.destroy");
 });
 
 /**

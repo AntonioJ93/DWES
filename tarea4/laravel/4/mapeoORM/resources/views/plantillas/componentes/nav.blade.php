@@ -12,19 +12,38 @@
                     <a class="nav-link" href="{{route('articulo.home')}}">Artículos</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{route('proveedor.home')}}">Proveedores</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{route('contacto')}}">Contacto</a>
                 </li>
 
             </ul>
 
-            <form class="d-flex flex-wrap justify-content-end" method="GET" action="{{route('articulo.buscar')}}">
+            <form class="d-flex flex-wrap justify-content-end" method="GET" action="
+            @if (request()->routeIs('articulo.*'))
+            {{route('articulo.buscar')}}
+            @endif
+            @if (request()->routeIs('proveedor.*'))
+            {{route('proveedor.buscar')}}
+            @endif
+            ">
                 @csrf
 
                 @if (request()->routeIs('articulo.*')&&!request()->routeIs('articulo.create'))
                 <a class="btn btn-success  me-2" href="{{route('articulo.create')}}">Añadir artículo</a>
                 @endif
-                <input class="form-control width-10" name="texto" type="search" placeholder="Nombre/Precio"
-                    aria-label="Search">
+                @if (request()->routeIs('proveedor.*')&&!request()->routeIs('proveedor.create'))
+                <a class="btn btn-success  me-2" href="{{route('proveedor.create')}}">Añadir proveedor</a>
+                @endif
+                <input class="form-control width-10" name="texto" type="search" placeholder=
+                @if (request()->routeIs('articulo.*'))
+                "Nombre/Precio"
+                 @endif
+                 @if (request()->routeIs('proveedor.*'))
+            "Nombre"
+            @endif
+                aria-label="Search">
                 <button class="btn btn-outline-success " type="submit">Buscar</button>
             </form>
         </div>

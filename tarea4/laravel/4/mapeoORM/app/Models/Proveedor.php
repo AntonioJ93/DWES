@@ -13,7 +13,7 @@ class Proveedor extends Model
     use SoftDeletes;// hace que delete() haga un soft delete
 
     protected $table="proveedor";//tabla de la bbdd a mapear
-
+    protected $fillable=["nombre","descripcion","slug"];//campos habilitados para la asignación masiva
 
     protected function nombre():Attribute{
         return new Attribute(

@@ -26,7 +26,13 @@ class ArticuloController extends Controller
 
     public function show(Articulo $articulo)
     {
-        // $articulo=Articulo::find($id);
+        if($articulo->proveedor==null){
+            //proveedor borrado con soft deleteing
+            $articulo->proveedor=Proveedor::withTrashed()//buscar en todos incluidos los eliminados
+            ->where("id",$articulo->proveedor_id)->first();
+            $borrado=true;
+            return view("articulo.detalle", compact("articulo","borrado"));
+        }
         return view("articulo.detalle", compact("articulo"));
     }
 

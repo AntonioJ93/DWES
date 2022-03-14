@@ -23,8 +23,15 @@ Artículos
             <p class="card-text content-size">Id:
                 <?=$articulo->id?>
             </p>
-            <p class="card-text content-size">Proveedor:
+            <p class="card-text content-size">
+                @isset($borrado)
+               <p class="text-danger card-text content-size">Proveedor eliminado</p> 
+                @endisset
+                Proveedor:
                 {{$articulo->proveedor->nombre}}
+                
+                    
+               
             </p>
             <p class="card-text content-size">
                 <?=$articulo->descripcion?>
