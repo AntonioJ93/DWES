@@ -5,17 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
 class Articulo extends Model
 {// php artisan make:model Articulo
     use HasFactory;
-
+    use SoftDeletes;// hace que delete() haga un soft delete
+    
     protected $table="articulo";//tabla de la bbdd a mapear
     //protected $primaryKey="nombre de la columna pk"  la columna pk no se llama id
 
     //campos habilitados para la asignación masiva
-    protected $fillable=["nombre","precio","descripcion","slug"];
+    protected $fillable=["nombre","precio","descripcion","slug","proveedor_id"];
 
     //campos deshabilitados para la asignación masiva
     //protected $guarded=["enable"];
@@ -64,6 +66,11 @@ class Articulo extends Model
     public function getRouteKeyName()
     {
         return "slug";//sustituir id de la ruta por slug
+    }
+
+    //manyToOne
+    public function proveedor(){
+        return $this->belongsTo(Proveedor::class);
     }
    
 }

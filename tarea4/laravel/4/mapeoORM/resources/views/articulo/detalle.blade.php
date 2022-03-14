@@ -23,6 +23,9 @@ Artículos
             <p class="card-text content-size">Id:
                 <?=$articulo->id?>
             </p>
+            <p class="card-text content-size">Proveedor:
+                {{$articulo->proveedor->nombre}}
+            </p>
             <p class="card-text content-size">
                 <?=$articulo->descripcion?>
             </p>

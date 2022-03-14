@@ -41,6 +41,26 @@ Artículos
           </div>
           @enderror
         </div>
+
+        <div class="mb-3">
+          <label for="proveedor" class="form-label">Proveedor</label>
+
+          <select class="form-control @error('proveedor') is-invalid @enderror" name="proveedor_id" id="proveedor">
+            @foreach ($proveedores as $proveedor)
+            <option value="{{$proveedor->id}}"
+              @if ($proveedor->id==old('proveedor_id'))
+              selected
+          @endif
+              >{{$proveedor->nombre}}</option>
+            @endforeach
+          </select>
+          @error('proveedor')
+          <div class="invalid-feedback">
+            {{$message}}
+          </div>
+          @enderror
+        </div>
+
         <div class="mb-3">
           <label for="descripcion" class="form-label">Descripción</label>
           <textarea class="form-control @error('descripcion') is-invalid @enderror" name="descripcion" id="descripcion"

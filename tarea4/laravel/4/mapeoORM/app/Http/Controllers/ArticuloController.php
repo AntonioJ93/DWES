@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreArticulo;
 use App\Models\Articulo;
+use App\Models\Proveedor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -19,7 +20,8 @@ class ArticuloController extends Controller
 
     public function create()
     {
-        return view("articulo.form-articulo");
+        $proveedores=Proveedor::all();
+        return view("articulo.form-articulo",compact("proveedores"));
     }
 
     public function show(Articulo $articulo)
@@ -34,7 +36,7 @@ class ArticuloController extends Controller
          *  validar los datos en el StoreArticulo
          */
 
-         //asignación manual
+        //asignación manual
        /* $articulo = new Articulo();
         $articulo->nombre = $req->nombre;
         $articulo->descripcion = $req->descripcion;
@@ -64,8 +66,8 @@ class ArticuloController extends Controller
     }
 
     public function edit(Articulo $articulo)
-    {
-        return view("articulo.editar", compact("articulo"));
+    {   $proveedores=Proveedor::all();
+    return view("articulo.editar", compact("articulo","proveedores"));
     }
 
     public function update(Articulo $articulo, Request $req)
