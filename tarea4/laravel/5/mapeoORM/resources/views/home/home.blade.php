@@ -19,6 +19,7 @@ Home
             </p>
             <p class="card-text content-size">Ademas en la parte de contacto puedes enviar correos a  mi direccion de correo pryet2@gmail.com</p>
             <p class="card-text content-size">Por eso este ejercicio y el ejercicio 5 es el mismo</p>
+            <p class="card-text content-size">Recuerda ejecutar php artisan migrate:fresh --seed para poblar la bbdd</p>
         
         </div>
 

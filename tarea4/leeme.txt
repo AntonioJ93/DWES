@@ -1,0 +1,4 @@
+Para generar los datos de ejemplo en los ejercicios 4,5 y 6 
+ejecutar el siguiente comando:
+
+php artisan migrate:fresh --seed
