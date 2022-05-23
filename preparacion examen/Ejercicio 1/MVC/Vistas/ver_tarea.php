@@ -17,7 +17,7 @@
 
     <h2 class='display-5 mt-4 mb-3'>Añadir tarea</h2>
 
-    <form action="" method="post"></form>
+    <form action="index.php?acción=addTarea" method="get"></form>
 
   </body>
 </html>
