@@ -27,21 +27,7 @@ class Controlador
 
     public function addTarea()
     {
-        $queHacer = $_GET["queHacer"];
-        $prioridad = $_GET["prioridad"];
-        $fechaTope = $_GET["fechaTope"];
-        switch ($prioridad) {
-            case 'Alta':
-                $prioridad = Prioridad::Alta;
-                break;
-            case 'Media':
-                $prioridad = Prioridad::Media;
-                break;
-            case 'Baja':
-                $prioridad = Prioridad::Baja;
-                break;
-        }
-        $tarea = new Tarea($queHacer, $prioridad, new DateTime($fechaTope));
+        $tarea =  $tarea = $this->recogerDatos();
         $this->tareaService->addTarea($tarea);
         $_REQUEST["msg"]="Tarea Añadida";
         $this->mostrar_ver_tarea();
@@ -63,6 +49,13 @@ class Controlador
 
     public function editTarea(){
         $indice=$_GET["indice"];
+        $tarea = $this->recogerDatos();
+        $this->tareaService->updateTarea($indice,$tarea);
+        $_REQUEST["msg"]="Tarea Actualizada";
+        $this->mostrar_inicio();
+    }
+
+    private function recogerDatos():Tarea{
         $queHacer = $_GET["queHacer"];
         $prioridad = $_GET["prioridad"];
         $fechaTope = $_GET["fechaTope"];
@@ -77,9 +70,6 @@ class Controlador
                 $prioridad = Prioridad::Baja;
                 break;
         }
-        $tarea = new Tarea($queHacer, $prioridad, new DateTime($fechaTope));
-        $this->tareaService->updateTarea($indice,$tarea);
-        $_REQUEST["msg"]="Tarea Actualizada";
-        $this->mostrar_inicio();
+        return new Tarea($queHacer, $prioridad, new DateTime($fechaTope));
     }
 }

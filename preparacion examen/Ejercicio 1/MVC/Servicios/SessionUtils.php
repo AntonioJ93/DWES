@@ -18,7 +18,6 @@ class SessionUtils
     public static function tareaSessionExist(String $indice):bool{
         if(!isset($_SESSION[SessionUtils::$SESION_VAR_NAME]))
             return false;
-        if($indice<count(SessionUtils::getSessionTareas()))
-            return true;
+        return array_key_exists($indice,SessionUtils::getSessionTareas());
     }
 }
