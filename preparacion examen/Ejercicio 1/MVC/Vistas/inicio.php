@@ -26,21 +26,26 @@
         <th>Prioridad</th>
         <th>Fecha de creación</th>
         <th>Fecha tope</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
-      <?php $tareas = $_REQUEST["tareas"];
-      foreach ($tareas as $key => $tarea) { ?>
+      <?php if(isset($_REQUEST["tareas"])){
+        foreach ($_REQUEST["tareas"] as $key => $tarea) { ?>
         <tr>
           <td><?= $tarea->getQueHacer() ?></td>
-          <td><?= $tarea->getPrioridad() ?></td>
+          <td><?= $tarea->getPrioridad()->getName() ?></td>
           <td><?= $tarea->getFechaCreacion() ?></td>
           <td><?= $tarea->getfechaTope() ?></td>
+          <td><a class="btn btn-danger" href="index.php?acción=delTarea&&indice=<?=$key?>">Borrar</a>
+          <a class="btn btn-warning" href="index.php?acción=editForm&&indice=<?=$key?>">Editar</a>
+          </td>
         </tr>
-      <?php } ?>
+      <?php } 
+        }?>
     </tbody>
   </table>
-  <?php if (count($tareas) == 0) { ?>
+  <?php if (!isset($_REQUEST["tareas"])||count($_REQUEST["tareas"])==0) { ?>
     <p>No hay tareas que mostrar</p>
   <?php } ?>
 </body>

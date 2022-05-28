@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 class TareaServiceImpl implements TareaService
-{/**new Tarea("1","xxx",Prioridad::Alta,new DateTime("2022-10-22")) */
+{
     public function addTarea(Tarea $tarea):array{
         if(!SessionUtils::tareasSessionExist())
             SessionUtils::initSessionTareas();

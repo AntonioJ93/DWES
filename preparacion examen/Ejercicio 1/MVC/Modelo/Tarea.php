@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 include_once __DIR__ ."/Prioridad.php";
-class Tarea
+class Tarea 
 {
     private String $queHacer;
     private Prioridad $prioridad;
