@@ -36,7 +36,7 @@
           <td><?= $tarea->getQueHacer() ?></td>
           <td><?= $tarea->getPrioridad()->getName() ?></td>
           <td><?= $tarea->getFechaCreacion() ?></td>
-          <td><?= $tarea->getfechaTope() ?></td>
+          <td><?= $tarea->getfechaTope()=="0000-01-01"?"-":$tarea->getfechaTope() ?></td>
           <td><a class="btn btn-danger" href="index.php?acción=delTarea&&indice=<?=$key?>">Borrar</a>
           <a class="btn btn-warning" href="index.php?acción=editForm&&indice=<?=$key?>">Editar</a>
           </td>

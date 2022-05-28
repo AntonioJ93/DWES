@@ -30,6 +30,9 @@
     <div class="mb-3">
       <label for="queHacer" class="form-label">Que Hacer</label>
       <input name="queHacer" value="<?= $editar ? $_REQUEST["tarea"]->getQueHacer() : '' ?>" type="text" class="form-control" id="queHacer">
+      <?php if (isset($_REQUEST["queHacerRequerido"])) { ?>
+        <span class=" text-danger "><?= $_REQUEST["queHacerRequerido"] ?></span>
+      <?php } ?>
     </div>
     <div class="row  mb-3">
       <div class=" col-6">
@@ -38,9 +41,12 @@
           <?php foreach ($_REQUEST["prioridades"] as $key => $prioridad) { ?>
             <option <?php if ($editar) {
                       if ($_REQUEST["tarea"]->getPrioridad()->getName() == $prioridad) { ?> selected <?php }
-                           } ?>><?= $prioridad ?></option>
+                                                                                                  } ?>><?= $prioridad ?></option>
           <?php } ?>
         </select>
+        <?php if (isset($_REQUEST["prioridadRequerido"])) { ?>
+          <span class=" text-danger "><?= $_REQUEST["prioridadRequerido"] ?></span>
+        <?php } ?>
       </div>
       <div class="col-6">
         <label for="fechaTope" class="form-label">Fecha Tope</label>
