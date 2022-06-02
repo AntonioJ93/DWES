@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 require_once("./Conexion.php");
 require_once("./Idea.php");
 require_once("./IdeaService.php");
