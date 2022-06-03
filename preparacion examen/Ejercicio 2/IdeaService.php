@@ -22,23 +22,96 @@ class IdeaService
             $this->conexion->commit();
         } catch (PDOException $e) {
             $this->conexion->rollBack();
-            echo "Transaction error: " . $e;
+            throw $e;
         }
 
         return $this->findById($ultimoId);
     }
 
-    public function findById(int $id)
+    public function findById(int $id): Idea
     {
         $sth = $this->conexion->prepare("SELECT id, votos FROM idea WHERE id=:id");
         $sth->execute(array(":id" => $id));
         $idea = $sth->fetch();
-
-        $sth = $this->conexion->prepare("SELECT punto FROM idea JOIN puntos 
-                                        ON idea.id=puntos.id_idea WHERE idea.id=:id");
+        if (!$idea) {
+            throw new PDOException("El id no esta presente en la BBDD");
+        }
+        $sth = $this->conexion->prepare("SELECT punto FROM puntos 
+                                       WHERE id_idea=:id");
         $sth->execute(array(":id" => $id));
         $puntos = $sth->fetchAll();
         //id //puntos //votos
         return Idea::fullConstructor($idea[0], $puntos, $idea[1]);
+    }
+
+    public function deleteIdea(int $id): Idea
+    {
+        $this->conexion->beginTransaction();
+        try {
+            $idea = $this->findById($id);
+            $sth = $this->conexion->prepare("DELETE FROM puntos WHERE id_idea=:id");
+            $sth->execute(array(":id" => $id));
+
+            $sth = $this->conexion->prepare("DELETE FROM idea WHERE id=:id");
+            $sth->execute(array(":id" => $id));
+            $this->conexion->commit();
+        } catch (PDOException $e) {
+            $this->conexion->rollBack();
+            throw $e;
+        }
+        return $idea;
+    }
+
+    public function addPunto(int $id, String $punto): Idea
+    {
+        try {
+            $this->conexion->beginTransaction();
+            $sth = $this->conexion->prepare("INSERT INTO puntos (id_idea,punto) VALUES(?,?)");
+            $sth->execute(array($id, $punto));
+            $this->conexion->commit();
+        } catch (PDOException $e) {
+            $this->conexion->rollBack();
+            throw $e;
+        }
+
+        return $this->findById($id);
+    }
+
+    public function findAll(): array
+    {
+        $sth = $this->conexion->prepare("SELECT id, votos FROM idea");
+        $sth->execute();
+        $ideas = $sth->fetchAll();
+        if (count($ideas) == 0) {
+            throw new PDOException("El id no esta presente en la BBDD");
+        }
+
+        $sth = $this->conexion->prepare("SELECT punto FROM puntos 
+        WHERE id_idea=:id");
+        foreach ($ideas as $key => $value) {
+            $sth->execute(array(":id" => $value[0]));
+            $puntos = $sth->fetchAll();
+            $ideas[$key] = Idea::fullConstructor($value[0], $puntos, $value[1]);
+        }
+
+
+        //id //puntos //votos
+        return $ideas;
+    }
+
+    public function addVoto(int $id): Idea
+    {
+        $this->conexion->beginTransaction();
+        try {
+            $idea = $this->findById($id);
+            $sth = $this->conexion->prepare("UPDATE idea SET votos=? WHERE id=?");
+            $sth->execute(array($idea->getVotos() + 1, $id));
+            $this->conexion->commit();
+        } catch (PDOException $e) {
+            $this->conexion->rollBack();
+            throw $e;
+        }
+
+        return $this->findById($id);
     }
 }

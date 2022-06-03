@@ -44,13 +44,21 @@ class Idea
     }
 
     public function toJson():string{
-        $cadenaPuntos="";
+       // $cadenaPuntos="";
         
-        foreach ($this->puntos as $key => $value) {
-           $cadenaPuntos.="{".$key.":".$value[$key]."}";
+      /*  foreach ($this->puntos as $key => $value) {
+           $cadenaPuntos.="{".$key.":".$value['punto']."}";
         }
         $jsonPuntos="{puntos:".$cadenaPuntos."}";
-        return "{id:".$this->id."".$jsonPuntos."votos:".$this->votos."}";
+        return "{id:".$this->id."".$jsonPuntos."votos:".$this->votos."}";*/
+
+        $i = new class()
+        {
+        };
+        $i->id = $this->getId();
+        $i->puntos = $this->getPuntos();
+        $i->votos = $this->getVotos();
+        return json_encode( $i);
     }
 }
 
